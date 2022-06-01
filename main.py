@@ -18,14 +18,14 @@ def listdirs(rootdir, max_len):
         d = os.path.join(rootdir, file)
         d = d.replace('/', '\\')
         global_count += 1
+        if len(d) >= max_len:
+            global_long += 1
+            global_long_list.append([d])
         sys.stdout.write('\r')
         sys.stdout.write('[Directories scanned: ' + str(global_count))
         sys.stdout.write('  <<---->>  Long directories detected: ' + str(global_long))
         sys.stdout.write(']          ')
         sys.stdout.flush()
-        if len(d) >= max_len:
-            global_long += 1
-            global_long_list.append([d])
         if os.path.isdir(d):
             listdirs(d, max_len)
 
