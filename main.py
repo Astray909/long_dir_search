@@ -25,7 +25,7 @@ def listdirs(rootdir):
         sys.stdout.flush()
         if len(d) >= 256:
             global_long += 1
-            global_long_list.append(d)
+            global_long_list.append([d])
         if os.path.isdir(d):
             listdirs(d)
 
@@ -56,7 +56,10 @@ def gui():
             messagebox.showinfo(title="Important message", message="Please select a reference file")
             return
         listdirs(rootdir)
-        print(global_long_list)
+        with open('output.csv', 'w', newline='') as f:
+            write = csv.writer(f)
+            write.writerows(global_long_list)
+        f.close()
 
     main.geometry('280x50')
 
